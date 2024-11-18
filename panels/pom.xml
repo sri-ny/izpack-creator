@@ -1,0 +1,115 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.test.installer</groupId>
+        <artifactId>izpack-example</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>izpack-panels</artifactId>
+    <name>IzPack Panels</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <developers>
+        <developer>
+            <id>slingaia</id>
+            <name>Sridhar Lingaiah</name>
+            <email>sridhar.lingaiah@jcrew.com</email>
+            <timezone>-5</timezone>
+        </developer>
+    </developers>
+
+    <!-- <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories> -->
+
+    <dependencies>
+        <!-- Apache Commons Configuration2 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-configuration2</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+        <!-- WindowsService -->
+        <dependency>
+			<groupId>com.github.alotuser</groupId>
+			<artifactId>winsw-maven-plugin</artifactId>
+			<version>2.12.1</version>
+		</dependency>
+        <!-- IzPack Dependencies -->
+        <dependency>
+            <groupId>org.codehaus.izpack</groupId>
+            <artifactId>izpack-api</artifactId>
+            <version>5.2.3</version> <!-- Use an available version -->
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.izpack</groupId>
+            <artifactId>izpack-panels</artifactId>
+            <version>5.2.3</version> <!-- Use an available version -->
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.izpack</groupId>
+            <artifactId>izpack-standalone-compiler</artifactId>
+            <version>5.2.3</version> <!-- Use an available version -->
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <defaultGoal>install</defaultGoal>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+
+            <!-- Jar Plugin to Package Custom Panel -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>com.izforge.izpack.panels.XstProcessPanel</mainClass> 
+									<!-- Replace with your actual main class -->
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
